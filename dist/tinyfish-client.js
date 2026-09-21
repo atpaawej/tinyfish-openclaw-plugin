@@ -36,7 +36,7 @@ export class TinyFishClient {
             params.set("freshness", input.freshness);
         for (const domain of input.domains ?? [])
             params.append("domain", domain);
-        return this.request(`${this.searchBaseUrl}/search?${params}`, { method: "GET" }, input.signal);
+        return this.request(`${this.searchBaseUrl}/?${params}`, { method: "GET" }, input.signal);
     }
     fetch(input) {
         const body = { urls: input.urls, format: input.format ?? "markdown" };
@@ -44,7 +44,7 @@ export class TinyFishClient {
             body.ttl = input.ttl;
         if (input.purpose)
             body.purpose = input.purpose;
-        return this.request(`${this.fetchBaseUrl}/fetch`, { method: "POST", body: JSON.stringify(body) }, input.signal);
+        return this.request(`${this.fetchBaseUrl}/`, { method: "POST", body: JSON.stringify(body) }, input.signal);
     }
     async request(url, init, signal) {
         const controller = new AbortController();
