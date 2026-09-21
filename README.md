@@ -1,22 +1,30 @@
-# TinyFish OpenClaw Plugin
+# TinyFish Web Provider for OpenClaw
 
-An open-source OpenClaw plugin that provides TinyFish-powered native `web_search` and `web_fetch` providers.
+This plugin registers TinyFish as the native backend for OpenClaw's `web_search` and `web_fetch` capabilities. It does not add `advanced_web_search` or a custom TinyFish tool.
 
-## Status
+## Install and configure
 
-Design and implementation plan are complete. The plugin implementation is next.
+```bash
+openclaw plugins install @tinyfish/openclaw-web-provider
+openclaw onboard
+```
 
-## Planned capabilities
+Select TinyFish during onboarding and paste an API key from a TinyFish account. Search and Fetch are free, but REST access requires the key and may be rate-limited; free does not mean anonymous or unlimited.
 
-- Native OpenClaw `web_search` provider backed by TinyFish Search
-- Native OpenClaw `web_fetch` provider backed by TinyFish Fetch
-- Secure API-key onboarding through `openclaw onboard`
-- JavaScript-heavy page extraction
-- No duplicate advanced-search tool in v1
+Alternatively, set `TINYFISH_API_KEY` in the Gateway environment, or configure the sensitive plugin value:
 
-TinyFish Search and Fetch are free, but their REST APIs require a TinyFish account and API key.
+```json5
+{
+  plugins: { entries: { "tinyfish-web": { enabled: true, config: { apiKey: "..." } } } },
+  tools: { web: { search: { provider: "tinyfish" }, fetch: { provider: "tinyfish" } } }
+}
+```
 
-See:
+Use the standard native `web_search` and `web_fetch` tools. Supported search fields are the host's standard query, count, language, country, freshness, and domain filters. TinyFish-only fields such as `purpose`, `domain_type`, and publication-year controls are intentionally not added to the native schema in v1.
 
-- [`docs/superpowers/specs/2026-09-22-tinyfish-web-provider-design.md`](docs/superpowers/specs/2026-09-22-tinyfish-web-provider-design.md)
-- [`docs/superpowers/plans/2026-09-22-tinyfish-web-provider.md`](docs/superpowers/plans/2026-09-22-tinyfish-web-provider.md)
+## Troubleshooting
+
+- Missing key: configure onboarding, `plugins.entries.tinyfish-web.config.apiKey`, or `TINYFISH_API_KEY`, then restart the Gateway.
+- `401`/`403`: check the account key and restart the Gateway after changing it.
+- `429`: wait for the provider's rate limit window and retry.
+- Network failures/timeouts: verify Gateway egress and restart after configuration changes.
