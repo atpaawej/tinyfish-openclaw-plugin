@@ -1,0 +1,12 @@
+{
+  "id": "tinyfish-web",
+  "name": "TinyFish Web",
+  "description": "Native OpenClaw web search and fetch backed by TinyFish.",
+  "categories": ["search"],
+  "contracts": { "webSearchProviders": ["tinyfish"], "webFetchProviders": ["tinyfish"], "tools": [] },
+  "activation": { "onStartup": true },
+  "configSchema": { "type": "object", "additionalProperties": false, "properties": { "apiKey": { "type": "string", "minLength": 1 } } },
+  "uiHints": { "apiKey": { "label": "TinyFish API key", "help": "Required for TinyFish REST requests; Search and Fetch are free but rate-limited.", "sensitive": true, "placeholder": "tf-..." } },
+  "setup": { "requiresRuntime": false, "providers": [{ "id": "tinyfish", "authMethods": ["api-key"], "envVars": ["TINYFISH_API_KEY"] }] },
+  "providerAuthChoices": [{ "provider": "tinyfish", "method": "api-key", "choiceId": "tinyfish-api-key", "choiceLabel": "TinyFish API key", "choiceHint": "Paste one account API key; free Search and Fetch still require an account key.", "appGuidedSecret": true, "credentialOnly": true, "website": "https://tinyfish.ai" }]
+}

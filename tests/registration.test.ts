@@ -1,0 +1,3 @@
+import { expect, it, vi } from "vitest";
+import { register } from "../src/index.js";
+it("registers exactly native search and fetch providers, not tools", () => { const api = { registerWebSearchProvider: vi.fn(), registerWebFetchProvider: vi.fn(), registerTool: vi.fn() }; register(api); expect(api.registerWebSearchProvider).toHaveBeenCalledOnce(); expect(api.registerWebFetchProvider).toHaveBeenCalledOnce(); expect(api.registerTool).not.toHaveBeenCalled(); expect(api.registerWebSearchProvider.mock.calls[0][0].id).toBe("tinyfish"); expect(api.registerWebFetchProvider.mock.calls[0][0].id).toBe("tinyfish"); });
