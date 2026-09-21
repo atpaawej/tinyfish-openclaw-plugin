@@ -2,7 +2,7 @@
   "id": "tinyfish-web",
   "name": "TinyFish Web",
   "description": "Native OpenClaw web search and fetch backed by TinyFish.",
-  "categories": ["search"],
+  "categories": ["developer-tools"],
   "contracts": { "webSearchProviders": ["tinyfish"], "webFetchProviders": ["tinyfish"], "tools": [] },
   "activation": { "onStartup": true },
   "configSchema": { "type": "object", "additionalProperties": false, "properties": { "apiKey": { "type": "string", "minLength": 1 } } },
