@@ -5,9 +5,11 @@ This plugin registers TinyFish as the native backend for OpenClaw's `web_search`
 ## Install and configure
 
 ```bash
-openclaw plugins install @tinyfish/openclaw-web-provider
+openclaw plugins install git+https://github.com/atpaawej/tinyfish-openclaw-plugin.git#main
 openclaw onboard
 ```
+
+The GitHub install is used until the package is published to npm. After publication, the npm form is `openclaw plugins install @tinyfish/openclaw-web-provider`.
 
 Select TinyFish during onboarding and paste an API key from a TinyFish account. Search and Fetch are free, but REST access requires the key and may be rate-limited; free does not mean anonymous or unlimited.
 
